@@ -12,6 +12,8 @@ import numpy as np
 # 2 players, starting with 1 finger on each hand; 2 hands.
 player_hand = np.array([1, 1])
 bot_hand = np.array([1, 1])
+player_turn = 1
+bot_turn = 0
 
 
 def action_attack(player, bot): #attacking function
@@ -38,12 +40,15 @@ def action_split(player, bot): #splitting hand function
     else:
         action_split(player)
 
-def make_move(player_array, bot_array): #function for whenever you have a move
-    decision = input ("Please make a move (attack/split): ")
+def make_move(player_array, bot_array, whose_turn): #function for whenever you have a move
+    if (whose_turn == 1):
+        decision = input ("Please make a move (attack/split): ")
+    if (whose_turn == 0):
+        bot_rando
     if decision == "attack":
-        player, move = action_attack(player_array, bot_array)
+        player, move = action_attack(player_array, bot_array, whose_turn)
     elif decision == "split":
-        player, move = action_split (player_array, bot_array)
+        player, move = action_split (player_array, bot_array, whose_turn)
     return player, move
         
 def continue_or_not(player_input, bot_input): #determines if the game is over
@@ -56,7 +61,11 @@ def continue_or_not(player_input, bot_input): #determines if the game is over
 
 while True:
     print (f"You have {player_hand}. I have {bot_hand}")
-    player_hand, bot_hand = make_move(player_hand, bot_hand) # Player's turn
+    player_hand, bot_hand = make_move(player_hand, bot_hand, player_turn) # Player's turn
+    winner = continue_or_not(player_hand, bot_hand)
+    if (winner != True):
+        break
+    player_hand, bot_hand = make_move(player_hand, bot_hand, bot_turn) # Bot's turn
     winner = continue_or_not(player_hand, bot_hand)
     if (winner != True):
         break
