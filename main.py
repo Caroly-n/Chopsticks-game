@@ -16,6 +16,38 @@ player_turn = 1
 bot_turn = 0
 
 
+def find_best_move(player_array, bot_array):
+    connection_dictionaries = {
+        1 : one_point_dictionary,
+        2 : two_point_dictionary,
+        3 : three_point_dictionary,
+        4 : four_point_dictionary
+    }
+    one_point_dictionary = { #this point attacking the opponent's point
+        1 : 400,
+        2 : 500,
+        3 : 100,
+        4 : 1000
+    }
+    two_point_dictionary = {
+        1 : 0,
+        2 : 50, 
+        3 : 1000,
+        4 : 900
+    }
+    three_point_dictionary = {
+        1 : 0,
+        2 : 1000,
+        3 : 1000,
+        4 : 1000
+    }
+    four_point_dictionary = {
+        1 : 890,
+        2 : 1000,
+        3 : 1000,
+        4 : 1000
+    }
+
 def action_attack(player, bot): #attacking function
     which_hand = int(input("Which hand would you like to use (1/2)? "))
     which_opponent_hand = int(input("Which hand would you like to attack (1/2)? "))
@@ -42,7 +74,7 @@ def action_split(player, bot): #splitting hand function
 
 def make_move(player_array, bot_array, whose_turn): #function for whenever you have a move
     if (whose_turn == 1):
-        decision = input ("Please make a move (attack/split): ")
+        decision = input ("Please make a move (attack/split): ") #Player's move
     if (whose_turn == 0):
         bot_rando
     if decision == "attack":
